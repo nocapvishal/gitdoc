@@ -1,3 +1,23 @@
+## Assumptions
+
+GitDoc makes the following assumptions:
+
+- The GitHub username provided by the user is publicly accessible.
+- The analysis is based only on information available through the public GitHub API.
+- Repository presentation signals such as descriptions, topics, and demo links are useful indicators of portfolio quality.
+- A GitHub profile is a portfolio signal, not a complete representation of a developer's technical ability.
+- The Health Score is intended to provide consistent and explainable feedback rather than predict hiring outcomes.
+- GitHub popularity metrics such as followers and stars should not dominate the assessment because they do not directly represent a developer's technical capability.
+
+## Chosen Challenge Vertical
+
+**GitHub Roast and Rescue**
+
+GitDoc addresses the challenge of giving a messy GitHub profile the honest feedback it deserves.
+
+The solution combines GitHub profile analysis, deterministic scoring, recruiter-oriented feedback, a humorous roast, and an actionable rescue plan.
+
+
 GitDoc
 
 Your GitHub has symptoms. We have the diagnosis.
