@@ -2,6 +2,23 @@ import { NextRequest, NextResponse } from "next/server";
 
 const GITHUB_API = "https://api.github.com";
 
+type GitHubRepo = {
+  name: string;
+  description: string | null;
+  html_url: string;
+  homepage: string | null;
+  language: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  topics?: string[];
+  created_at: string;
+  updated_at: string;
+  pushed_at: string | null;
+  size: number;
+  fork: boolean;
+  archived: boolean;
+};
+
 const githubHeaders = {
   Accept: "application/vnd.github+json",
   "User-Agent": "GitDoc",
@@ -21,12 +38,12 @@ export async function GET(request: NextRequest) {
   try {
     // Get profile
     const userResponse = await fetch(
-  `${GITHUB_API}/users/${encodeURIComponent(username)}`,
-  {
-    headers: githubHeaders,
-    cache: "no-store",
-  }
-);
+      `${GITHUB_API}/users/${encodeURIComponent(username)}`,
+      {
+        headers: githubHeaders,
+        cache: "no-store",
+      }
+    );
 
     if (userResponse.status === 404) {
       return NextResponse.json(
@@ -36,55 +53,55 @@ export async function GET(request: NextRequest) {
     }
 
     if (!userResponse.ok) {
-  const errorText = await userResponse.text();
+      const errorText = await userResponse.text();
 
-  console.error(
-    "GitHub profile request failed:",
-    userResponse.status,
-    errorText
-  );
+      console.error(
+        "GitHub profile request failed:",
+        userResponse.status,
+        errorText
+      );
 
-  return NextResponse.json(
-    {
-      error: `GitHub API returned ${userResponse.status}.`,
-      details: errorText,
-    },
-    { status: userResponse.status }
-  );
-}
+      return NextResponse.json(
+        {
+          error: `GitHub API returned ${userResponse.status}.`,
+          details: errorText,
+        },
+        { status: userResponse.status }
+      );
+    }
 
     const user = await userResponse.json();
 
     // Get public repositories
-   const reposResponse = await fetch(
-  `${GITHUB_API}/users/${encodeURIComponent(
-    username
-  )}/repos?per_page=100&sort=updated`,
-  {
-    headers: githubHeaders,
-    cache: "no-store",
-  }
-);
+    const reposResponse = await fetch(
+      `${GITHUB_API}/users/${encodeURIComponent(
+        username
+      )}/repos?per_page=100&sort=updated`,
+      {
+        headers: githubHeaders,
+        cache: "no-store",
+      }
+    );
 
     if (!reposResponse.ok) {
-  const errorText = await reposResponse.text();
+      const errorText = await reposResponse.text();
 
-  console.error(
-    "GitHub repositories request failed:",
-    reposResponse.status,
-    errorText
-  );
+      console.error(
+        "GitHub repositories request failed:",
+        reposResponse.status,
+        errorText
+      );
 
-  return NextResponse.json(
-    {
-      error: `GitHub repositories API returned ${reposResponse.status}.`,
-      details: errorText,
-    },
-    { status: reposResponse.status }
-  );
-}
+      return NextResponse.json(
+        {
+          error: `GitHub repositories API returned ${reposResponse.status}.`,
+          details: errorText,
+        },
+        { status: reposResponse.status }
+      );
+    }
 
-    const repos = await reposResponse.json();
+    const repos: GitHubRepo[] = await reposResponse.json();
 
     return NextResponse.json({
       profile: {
@@ -100,7 +117,7 @@ export async function GET(request: NextRequest) {
         updated_at: user.updated_at,
       },
 
-      repositories: repos.map((repo: any) => ({
+      repositories: repos.map((repo) => ({
         name: repo.name,
         description: repo.description,
         html_url: repo.html_url,

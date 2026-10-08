@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import {
   calculateHealthScore,
   HealthScore,
@@ -44,21 +46,21 @@ type GitHubResponse = {
   repositories: Repo[];
 };
 
-export default function DiagnosePage() {
+function DiagnoseContent() {
+    const searchParams = useSearchParams();
+const username = searchParams.get("username");
   const [data, setData] = useState<GitHubResponse | null>(null);
   const [score, setScore] = useState<HealthScore | null>(null);
   const [error, setError] = useState("");
 
   const [roast, setRoast] = useState<string[]>([]);
   const [rescue, setRescue] = useState<RescueItem[]>([]);
-  useEffect(() => {
-  const params = new URLSearchParams(window.location.search);
-  const username = params.get("username");
-
+ useEffect(() => {
   if (!username) {
-    setError("No GitHub username provided.");
     return;
   }
+
+  
 
   const safeUsername = username;
 
@@ -67,11 +69,12 @@ export default function DiagnosePage() {
       const response = await fetch(
         `/api/github?username=${encodeURIComponent(safeUsername)}`
       );
-
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || "Unable to analyze GitHub.");
+        throw new Error(
+          result.error || "Unable to analyze GitHub."
+        );
       }
 
       setData(result);
@@ -80,7 +83,7 @@ export default function DiagnosePage() {
 
       setScore(health);
       setRoast(generateRoast(result, health));
-setRescue(generateRescuePlan(result, health));
+      setRescue(generateRescuePlan(result, health));
     } catch (err) {
       setError(
         err instanceof Error
@@ -91,8 +94,8 @@ setRescue(generateRescuePlan(result, health));
   }
 
   analyze();
-}, []);
-  if (error) {
+}, [username]);
+  if (error || !username) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-[#050505] px-6 text-white">
         <div className="text-center">
@@ -100,14 +103,15 @@ setRescue(generateRescuePlan(result, health));
             Diagnosis failed
           </h1>
 
-          <p className="mt-3 text-zinc-500">{error}</p>
-
-          <a
-            href="/"
-            className="mt-6 inline-block rounded-xl bg-white px-5 py-3 font-semibold text-black"
-          >
-            Try again
-          </a>
+         <p className="mt-3 text-zinc-500">
+  {error || "No GitHub username provided."}
+</p>
+          <Link
+  href="/"
+  className="mt-6 inline-block rounded-xl bg-white px-5 py-3 font-semibold text-black"
+>
+  Try again
+</Link>
         </div>
       </main>
     );
@@ -130,9 +134,9 @@ setRescue(generateRescuePlan(result, health));
   return (
     <main className="min-h-screen bg-[#050505] text-white">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-7">
-        <a href="/" className="text-xl font-semibold">
-          GitDoc
-        </a>
+       <Link href="/" className="text-xl font-semibold">
+  GitDoc
+</Link>
 
         <a
           href={data.profile.html_url}
@@ -389,7 +393,7 @@ setRescue(generateRescuePlan(result, health));
   </p>
 
   <h2 className="mt-2 text-2xl font-semibold">
-    Here's how you fix it.
+   Here&apos;s how you fix it.
   </h2>
 
   <div className="mt-6 space-y-4">
@@ -698,5 +702,24 @@ function Stat({
 
       <p className="mt-2 text-2xl font-semibold">{value}</p>
     </div>
+  );
+}
+
+export default function DiagnosePage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="flex min-h-screen items-center justify-center bg-[#050505] text-white">
+          <div className="text-center">
+            <div className="mx-auto mb-6 h-10 w-10 animate-spin rounded-full border-2 border-white/10 border-t-violet-400" />
+            <p className="text-sm text-zinc-500">
+              Scanning GitHub...
+            </p>
+          </div>
+        </main>
+      }
+    >
+      <DiagnoseContent />
+    </Suspense>
   );
 }

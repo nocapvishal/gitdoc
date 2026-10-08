@@ -1,268 +1,367 @@
-## Assumptions
+# GitDoc
 
-GitDoc makes the following assumptions:
+> **Your GitHub has symptoms. We have the diagnosis.**
 
-- The GitHub username provided by the user is publicly accessible.
-- The analysis is based only on information available through the public GitHub API.
-- Repository presentation signals such as descriptions, topics, and demo links are useful indicators of portfolio quality.
-- A GitHub profile is a portfolio signal, not a complete representation of a developer's technical ability.
-- The Health Score is intended to provide consistent and explainable feedback rather than predict hiring outcomes.
-- GitHub popularity metrics such as followers and stars should not dominate the assessment because they do not directly represent a developer's technical capability.
+GitDoc is a GitHub profile health-check tool built for the **GitHub Roast & Rescue** challenge.
 
-## Chosen Challenge Vertical
+Enter a public GitHub username and GitDoc analyzes the profile and repositories to turn raw GitHub data into:
 
-**GitHub Roast and Rescue**
-
-GitDoc addresses the challenge of giving a messy GitHub profile the honest feedback it deserves.
-
-The solution combines GitHub profile analysis, deterministic scoring, recruiter-oriented feedback, a humorous roast, and an actionable rescue plan.
-
-
-GitDoc
-
-Your GitHub has symptoms. We have the diagnosis.
-
-GitDoc is a GitHub profile health-check tool built for the GitHub
-Roast and Rescue challenge.
-
-It takes a public GitHub username, analyzes the profile and public
-repositories, and turns the raw GitHub data into three things:
-
-Diagnosis → Recruiter Perspective → Roast → Rescue
-
-Instead of relying on vague advice, GitDoc gives users an explainable,
-deterministic assessment based on signals that can actually be observed
-from their public GitHub profile.
-
-What GitDoc Does
-
-Enter a GitHub username and GitDoc:
-
-Fetches the user's public GitHub profile and repositories.
-
-Calculates a GitHub Health Score out of 100.
-
-Breaks the score into understandable categories.
-
-Generates a 30-second recruiter scan.
-
-Produces a funny but respectful GitHub roast based on actual
-profile signals.
-
-Creates an actionable Rescue Plan explaining what should be
-improved.
-
-Shows the user's repositories with useful quality signals such as
-descriptions, languages, topics, stars, forks, and live demos.
+**GitHub Data → Health Score → Recruiter Scan → Roast → Rescue Plan**
 
 The goal is simple:
 
-Make GitHub improvement understandable, honest, and actionable.
+> **Make GitHub improvement understandable, honest, and actionable.**
 
-Core Idea
+---
 
-A GitHub profile is often treated as a simple collection of
-repositories.
+## 🚀 Live Demo
 
-GitDoc treats it more like a candidate's public technical portfolio.
+**Live Application:**
+https://gitdoc-seven.vercel.app
 
-The flow
+**GitHub Repository:**
+https://github.com/nocapvishal/gitdoc
 
+---
+
+## ✨ Features
+
+* 🔍 Analyze any public GitHub profile
+* ❤️ Explainable **0–100 GitHub Health Score**
+* 📊 Category-based portfolio assessment
+* 👀 **30-Second Recruiter Scan**
+* 🔥 Personalized GitHub roast based on actual profile signals
+* 🛠️ Actionable **Rescue Plan**
+* 📁 Repository quality analysis
+* 📝 Documentation and metadata analysis
+* 🔗 Repository and live-demo links
+* ⚡ Fast, lightweight MVP architecture
+* 🔐 GitHub token kept server-side
+* 🚫 No database required
+* 🚫 No GitDoc account required
+
+---
+
+# 🎯 The Problem
+
+Developers often spend months building projects but their GitHub profile doesn't communicate that work effectively.
+
+A recruiter may only spend a short amount of time scanning a profile.
+
+They might see:
+
+* repositories without descriptions
+* unfinished or abandoned projects
+* missing documentation
+* unclear project purpose
+* weak profile presentation
+* no demo links
+* inconsistent repository metadata
+
+The developer may have good technical skills, but their public portfolio doesn't communicate them clearly.
+
+GitDoc focuses on the gap between:
+
+> **"I have projects."**
+
+and
+
+> **"My GitHub clearly communicates that I can build things."**
+
+---
+
+# 💡 The Solution
+
+GitDoc treats a GitHub profile as a **public technical portfolio**, rather than simply a collection of repositories.
+
+It analyzes observable GitHub signals and converts them into four useful outputs:
+
+### 1. Diagnosis
+
+A deterministic GitHub Health Score identifies strengths and weaknesses.
+
+### 2. Recruiter Perspective
+
+A simulated 30-second recruiter scan shows how the profile may appear during a quick review.
+
+### 3. Roast
+
+A funny but respectful roast highlights actual weaknesses in the profile.
+
+### 4. Rescue
+
+An actionable improvement plan explains what to fix and why it matters.
+
+The roast gets attention.
+
+**The rescue plan creates value.**
+
+---
+
+# 🔄 How GitDoc Works
+
+```text
 GitHub Username
-       ↓
+       │
+       ▼
 Public GitHub Data
-       ↓
+       │
+       ▼
 Profile + Repository Analysis
-       ↓
-Health Score
-       ↓
-30-Second Recruiter Scan
-       ↓
-Roast
-       ↓
-Rescue Plan
+       │
+       ▼
+Deterministic Scoring Engine
+       │
+       ├── Health Score
+       ├── Strengths
+       └── Weaknesses
+       │
+       ▼
+Insight Engine
+       │
+       ├── Recruiter Scan
+       ├── Roast
+       └── Rescue Plan
+       │
+       ▼
+Diagnosis Dashboard
+```
 
-Health Score
+---
 
-GitDoc uses a deterministic scoring system so that the same GitHub data
-produces the same assessment.
+# ❤️ GitHub Health Score
 
-The score is divided into five areas:
+GitDoc uses a **deterministic scoring system**.
 
-Category           Weight
+The same GitHub data produces the same assessment.
 
-Profile                20
-Projects               30
-Documentation          20
-Activity               15
-Presentation           15
-Total         100
+The score is divided into five categories:
 
-Score levels
+| Category      |  Weight |
+| ------------- | ------: |
+| Profile       |      20 |
+| Projects      |      30 |
+| Documentation |      20 |
+| Activity      |      15 |
+| Presentation  |      15 |
+| **Total**     | **100** |
 
-  Score Diagnosis
+## Score Levels
 
-  0--39 Critical
- 40--59 Needs Attention
- 60--74 Developing
- 75--89 Strong
-90--100 Recruiter Ready
+|      Score | Diagnosis          |
+| ---------: | ------------------ |
+| **90–100** | 🟢 Recruiter Ready |
+|  **75–89** | 🔵 Strong          |
+|  **60–74** | 🟡 Developing      |
+|  **40–59** | 🟠 Needs Attention |
+|   **0–39** | 🔴 Critical        |
 
-The scoring deliberately avoids treating follower count or popularity as
-the main measure of technical quality.
+The scoring deliberately avoids making follower count or repository popularity the dominant factor.
 
-The focus is on signals that a developer can actually improve.
+The focus is on signals developers can actually improve.
 
-Recruiter Scan
+---
 
-GitDoc includes a simulated 30-second recruiter scan.
+# 👀 30-Second Recruiter Scan
+
+GitDoc includes a simulated recruiter-style first impression.
 
 It answers questions such as:
 
-Would I keep browsing?
+* Would I keep browsing?
+* Would I open a repository?
+* What immediately catches my attention?
+* What makes me hesitate?
+* What is the strongest portfolio signal?
+* What is the biggest concern?
 
-Would I open a repository?
+The Recruiter Scan is **not intended to predict actual hiring outcomes**.
 
-What is the overall portfolio signal?
+Instead, it provides a compact way to understand how a public GitHub portfolio may come across during a quick review.
 
-What immediately catches my attention?
+---
 
-What makes me hesitate?
+# 🔥 The Roast
 
-What is the biggest concern?
+GitDoc doesn't generate random insults.
 
-The purpose isn't to pretend to predict an actual recruiter's decision.
-It is a compact way of showing how a public GitHub profile may come
-across during a quick review.
+The roast is based on actual profile signals.
 
-The Roast
-
-The roast is generated from the profile's actual signals.
-
-For example, if a profile has repositories without descriptions, GitDoc
-can point that out instead of generating a random insult.
+For example, if a profile contains multiple repositories without descriptions, the roast can call out the missing descriptions.
 
 The roast is designed to be:
 
-Funny
+* Funny
+* Specific
+* Respectful
+* Based on real profile data
+* Useful enough to lead into the rescue plan
 
-Specific
+The joke targets the **profile**, not the person.
 
-Respectful
+---
 
-Based on real profile data
-
-Useful enough to lead into the rescue plan
-
-The joke should target the profile, not the person.
-
-The Rescue Plan
+# 🛠️ The Rescue Plan
 
 Every diagnosis should lead to an action.
 
-GitDoc generates a prioritized rescue plan containing:
+GitDoc generates a prioritized rescue plan explaining:
 
-The problem
+| Element             | Purpose                                 |
+| ------------------- | --------------------------------------- |
+| **Problem**         | What is wrong                           |
+| **Why it matters**  | Why the issue affects portfolio quality |
+| **What to do**      | How to improve it                       |
+| **Expected impact** | What improvement the user can expect    |
 
-Why it matters
+This transforms GitDoc from a simple GitHub roast into a practical portfolio improvement tool.
 
-What to do about it
+---
 
-The expected impact
+# 📁 Repository Analysis
 
-This turns the product from a simple "GitHub roast" into a practical
-improvement tool.
+GitDoc analyzes publicly available repository information including:
 
-Repository Analysis
+* Repository name
+* Programming language
+* Description
+* Stars
+* Forks
+* Topics
+* Repository URL
+* Live demo URL when available
+* Repository metadata
+* Activity timestamps
 
-GitDoc displays public repositories and highlights useful signals
-including:
+This helps identify:
 
-Repository name
+* Projects worth highlighting
+* Projects that need better documentation
+* Missing metadata
+* Presentation weaknesses
+* Potentially strong projects that aren't being communicated effectively
 
-Programming language
+---
 
-Description
+# 🧠 Design Philosophy
 
-Stars
+### 1. Explainable over mysterious
 
-Forks
+Users should understand why their score changed.
 
-Topics
+### 2. Actionable over judgmental
 
-Repository link
+The roast is entertaining, but the rescue plan is the actual value.
 
-Live demo link, when available
+### 3. Public signals over popularity
 
-Whether useful project metadata is present
+A developer shouldn't receive a poor technical portfolio assessment simply because they have few followers.
 
-This makes it easier to identify projects that deserve attention and
-projects that need better presentation.
+### 4. Honest over artificially positive
 
-Tech Stack
+GitDoc is designed to identify weaknesses rather than give everyone a meaningless high score.
 
-Frontend
+### 5. Simple architecture
 
-Next.js
+The MVP avoids unnecessary infrastructure.
 
-React
+There is no database, user account system, or complicated backend service.
 
-TypeScript
+---
 
-Tailwind CSS
+# 🏗️ Architecture
 
-Backend
+```text
+                    ┌─────────────────┐
+                    │     Browser     │
+                    │ GitHub Username │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ Diagnose Page   │
+                    │    Next.js      │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ /api/github     │
+                    │  API Route      │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ GitHub REST API │
+                    └────────┬────────┘
+                             │
+                             ▼
+              ┌────────────────────────────┐
+              │ Public Profile + Repos     │
+              └──────────────┬─────────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ Scoring Engine  │
+                    │   scoring.ts    │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ Insight Engine  │
+                    │   insights.ts   │
+                    └────────┬────────┘
+                             │
+                 ┌───────────┼───────────┐
+                 ▼           ▼           ▼
+             Recruiter     Roast      Rescue
+               Scan                    Plan
+                 │           │           │
+                 └───────────┼───────────┘
+                             ▼
+                    ┌─────────────────┐
+                    │   Dashboard     │
+                    └─────────────────┘
+```
 
-Next.js API Route
+---
 
-GitHub REST API
+# 🧰 Tech Stack
 
-Storage / Authentication
+### Frontend
 
-No database is required.
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
 
-No GitDoc account or authentication is required.
+### Backend
 
-GitDoc only needs a public GitHub username to analyze public GitHub
-information.
+* Next.js API Routes
+* GitHub REST API
 
-Architecture
+### Testing
 
-Browser
-  │
-  │ GitHub username
-  ▼
-Next.js Diagnose Page
-  │
-  ▼
-/api/github
-  │
-  │ GitHub REST API
-  ▼
-Public GitHub Data
-  │
-  ├── Profile
-  └── Repositories
-        │
-        ▼
-   Scoring Engine
-        │
-        ├── Health Score
-        ├── Strengths
-        └── Weaknesses
-        │
-        ▼
-   Insight Engine
-        │
-        ├── Recruiter Scan
-        ├── Roast
-        └── Rescue Plan
-        │
-        ▼
-     Dashboard
+* Vitest
 
-Project Structure
+### Deployment
 
+* Vercel
+
+### Storage / Authentication
+
+GitDoc does not require:
+
+* A database
+* User accounts
+* GitDoc authentication
+
+Only a public GitHub username is required.
+
+---
+
+# 📂 Project Structure
+
+```text
 gitdoc/
 ├── app/
 │   ├── api/
@@ -272,198 +371,208 @@ gitdoc/
 │   │   └── page.tsx
 │   ├── page.tsx
 │   └── ...
+│
 ├── lib/
 │   ├── insights.ts
 │   └── scoring.ts
+│
 ├── public/
+│
 ├── .env.example
 ├── .gitignore
 ├── package.json
 └── README.md
+```
 
-Important files
+### Important Files
 
-app/page.tsx
+#### `app/page.tsx`
 
 Landing page and GitHub username input.
 
-app/api/github/route.ts
+#### `app/api/github/route.ts`
 
 Fetches public GitHub profile and repository information.
 
-lib/scoring.ts
+#### `lib/scoring.ts`
 
-Contains the deterministic GitHub health scoring logic.
+Contains the deterministic GitHub Health Score logic.
 
-lib/insights.ts
+#### `lib/insights.ts`
 
-Generates the recruiter insights, roast, and rescue-plan content.
+Generates recruiter insights, roast content, and rescue-plan recommendations.
 
-app/diagnose/page.tsx
+#### `app/diagnose/page.tsx`
 
 Displays the complete GitDoc diagnosis dashboard.
 
-Getting Started
+---
 
-1. Clone the repository
+# 🛠️ Run Locally
 
+## Requirements
+
+* Node.js
+* Git
+* GitHub Personal Access Token
+
+## 1. Clone the repository
+
+```bash
 git clone https://github.com/nocapvishal/gitdoc.git
 cd gitdoc
+```
 
-2. Install dependencies
+## 2. Install dependencies
 
+```bash
 npm install
+```
 
-3. Configure the GitHub token
+## 3. Configure the GitHub token
 
-Create a .env.local file:
+Create a `.env.local` file:
 
+```env
 GITHUB_TOKEN=your_github_token_here
+```
 
-A GitHub token is used for authenticated GitHub API requests and higher
-API rate limits.
+A GitHub token is used for authenticated GitHub API requests and higher API rate limits.
 
-Never commit .env.local or expose your token publicly.
+The repository includes `.env.example` as a safe template:
 
-The repository includes .env.example as a safe template:
-
+```env
 GITHUB_TOKEN=
+```
 
-4. Start the development server
+**Never commit `.env.local` or expose your token publicly.**
 
+## 4. Start the development server
+
+```bash
 npm run dev
+```
 
 Then open:
 
+```text
 http://localhost:3000
+```
 
-Security
+---
 
-GitHub credentials are kept outside the source code using environment
-variables.
+# 🧪 Testing
 
-The actual token should exist only in:
+GitDoc includes automated tests for the core scoring and insight logic.
 
-.env.local
+Run the test suite with:
 
-.env.local is ignored by Git and should never be pushed to GitHub.
+```bash
+npm test
+```
 
-Only the variable name is included in .env.example.
+The test suite covers core functionality including:
 
-API Data
+* Health Score calculation
+* Score levels
+* Roast generation
+* Rescue Plan generation
 
-GitDoc uses publicly available GitHub profile and repository
-information.
+---
 
-The application retrieves information such as:
+# ✅ Production Check
 
-Username
+Before deployment, the project can be checked with:
 
-Name
+```bash
+npm run lint
+npm test
+npm run build
+```
 
-Bio
+These checks help verify that the application is ready for production deployment.
 
-Avatar
+---
 
-Followers/following
+# 🔐 Security
 
-Public repository count
+GitDoc follows a simple server-side secret model.
 
-Repository descriptions
+* GitHub tokens are stored in environment variables.
+* `.env.local` is excluded from Git.
+* The actual token is never included in source code.
+* The token is used server-side for GitHub API requests.
+* `.env.example` contains only the variable name.
+* GitDoc does not store user credentials.
+* GitDoc does not require private GitHub repository access.
 
-Languages
+---
 
-Stars
+# 📡 GitHub API Data
 
-Forks
+GitDoc uses publicly available GitHub profile and repository information.
 
-Topics
+Depending on GitHub API availability, the application can retrieve information such as:
 
-Repository URLs
+* Username
+* Name
+* Bio
+* Avatar
+* Followers
+* Following
+* Public repository count
+* Repository descriptions
+* Programming languages
+* Stars
+* Forks
+* Topics
+* Repository URLs
+* Live demo URLs
+* Repository activity timestamps
 
-Live demo URLs
+GitDoc does **not** require access to private repositories.
 
-Repository activity timestamps
+---
 
-GitDoc does not require access to private repositories.
+# ⚠️ Limitations
 
-Design Philosophy
+GitDoc analyzes public GitHub information, so it cannot know everything about a developer.
 
-1. Explainable over mysterious
+The Health Score cannot fully measure:
 
-The user should understand why their score changed.
+* Private projects
+* Offline work
+* Actual coding ability
+* Interview performance
+* Teamwork
+* Communication skills
+* The complete context behind an inactive repository
+* Real-world engineering experience
 
-2. Actionable over judgmental
+Therefore:
 
-The roast is entertaining, but the rescue plan is the actual value.
+> **The GitHub Health Score is a portfolio diagnostic, not a measurement of someone's ability as a developer.**
 
-3. Public signals over popularity
+Likewise, the Recruiter Scan is a simulation of a quick portfolio review, not a prediction of actual hiring decisions.
 
-A developer shouldn't receive a poor technical assessment simply because
-they have few followers.
+---
 
-4. Honest over artificially positive
+# 🎯 Challenge Alignment
 
-GitDoc is designed to point out weaknesses rather than give everyone a
-meaningless high score.
+GitDoc directly addresses the **GitHub Roast & Rescue** challenge.
 
-5. Simple architecture
+| Challenge Goal           | GitDoc                          |
+| ------------------------ | ------------------------------- |
+| Analyze a messy GitHub   | Profile + repository analysis   |
+| Give honest feedback     | Deterministic Health Score      |
+| Recruiter perspective    | 30-Second Recruiter Scan        |
+| Roast the profile        | Signal-based personalized roast |
+| Rescue the profile       | Prioritized Rescue Plan         |
+| Make feedback actionable | Problem → Why → Action → Impact |
 
-The MVP intentionally avoids unnecessary infrastructure.
+The complete user journey is:
 
-There is no database, user account system, or complicated backend
-service.
-
-Limitations
-
-GitDoc analyzes public GitHub information, so it cannot know
-everything about a developer.
-
-For example, the score cannot fully measure:
-
-Private projects
-
-Offline work
-
-Actual coding ability
-
-Interview performance
-
-Teamwork
-
-Communication skills
-
-The complete context behind an inactive repository
-
-The Health Score should therefore be treated as a portfolio
-diagnostic, not a measurement of someone's ability as a developer.
-
-Why GitDoc?
-
-A developer can spend months building projects and still have a GitHub
-profile that communicates very little.
-
-GitDoc focuses on the gap between:
-
-"I have projects."
-
-and
-
-"My GitHub clearly communicates that I can build things."
-
-The product turns that gap into something visible, funny, and fixable.
-
-Hackathon Context
-
-GitDoc was built for the PromptWars x The Prompt Arena -- PU
-hackathon challenge:
-
-GitHub Roast and Rescue --- Give a messy GitHub profile the honest
-feedback it deserves.
-
-The project focuses on delivering a functional MVP with a clear user
-flow:
-
+```text
 Input GitHub Username
         ↓
 Analyze
@@ -475,7 +584,56 @@ Recruiter Scan
 Roast
         ↓
 Rescue
+```
 
-License
+---
 
-This project is provided for hackathon and educational purposes.
+# 🚀 Why GitDoc?
+
+A developer can build great projects and still have a GitHub profile that communicates very little.
+
+GitDoc makes that problem visible.
+
+Instead of simply saying:
+
+> "Improve your GitHub."
+
+GitDoc explains:
+
+> **What is wrong → Why it matters → How to fix it → What to prioritize.**
+
+The product combines **honest feedback, humor, explainability, and actionable improvement** into one simple workflow.
+
+---
+
+# 🏆 Hackathon Context
+
+GitDoc was built for the:
+
+**PromptWars × The Prompt Arena — PU Hackathon**
+
+### Challenge
+
+**GitHub Roast & Rescue — Give a messy GitHub profile the honest feedback it deserves.**
+
+GitDoc focuses on delivering a functional MVP around the core challenge:
+
+```text
+GitHub Profile
+      ↓
+Diagnosis
+      ↓
+Health Score
+      ↓
+Recruiter Perspective
+      ↓
+Roast
+      ↓
+Rescue
+```
+
+---
+
+# 📜 License
+
+Created for the **PromptWars × The Prompt Arena hackathon** and educational purposes.
