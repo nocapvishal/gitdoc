@@ -1,69 +1,146 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 
 export default function Home() {
+  const [username, setUsername] = useState("");
+
+  const handleScan = () => {
+    if (!username.trim()) return;
+
+    window.location.href = `/diagnose?username=${encodeURIComponent(
+      username.trim()
+    )}`;
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main className="min-h-screen bg-[#050505] text-white">
+      {/* Background */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute left-1/2 top-[-250px] h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-violet-600/10 blur-[140px]" />
+        <div className="absolute bottom-[-200px] left-[-100px] h-[400px] w-[400px] rounded-full bg-blue-600/10 blur-[130px]" />
+      </div>
+
+      {/* Navbar */}
+      <nav className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-6 py-7">
+        <div className="flex items-center gap-2">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-black font-bold">
+            G
+          </div>
+
+          <span className="text-xl font-semibold tracking-tight">
+            GitDoc
+          </span>
+        </div>
+
+        <div className="hidden text-sm text-zinc-500 sm:block">
+          GitHub Health Intelligence
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pb-24 pt-20 text-center sm:pt-28">
+        {/* Badge */}
+        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs text-zinc-400 backdrop-blur">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+          Recruiter-grade GitHub diagnosis
+        </div>
+
+        <h1 className="max-w-4xl text-5xl font-semibold tracking-[-0.04em] sm:text-7xl">
+          Your GitHub has symptoms.
+          <br />
+
+          <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-blue-400 bg-clip-text text-transparent">
+            We have the diagnosis.
+          </span>
+        </h1>
+
+        <p className="mt-7 max-w-2xl text-base leading-7 text-zinc-400 sm:text-lg">
+          See what a recruiter notices in the first 30 seconds.
+          Get an honest diagnosis, a little roast, and a clear plan
+          to make your GitHub actually hireable.
+        </p>
+
+        {/* Input */}
+        <div className="mt-12 w-full max-w-2xl">
+          <div className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-2 shadow-2xl shadow-black/40 backdrop-blur-xl sm:flex-row">
+            <div className="flex flex-1 items-center px-4">
+              <span className="mr-2 text-zinc-600">github.com/</span>
+
+              <input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleScan();
+                }}
+                placeholder="username"
+                className="w-full bg-transparent py-3 text-white outline-none placeholder:text-zinc-700"
+              />
+            </div>
+
+            <button
+              onClick={handleScan}
+              className="rounded-xl bg-white px-7 py-3 font-semibold text-black transition hover:bg-zinc-200 active:scale-[0.98]"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              Diagnose →
+            </button>
+          </div>
+
+          <p className="mt-3 text-xs text-zinc-600">
+            No login required · Public GitHub data only
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Process */}
+        <div className="mt-24 grid w-full max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3">
+          <Step
+            number="01"
+            title="SCAN"
+            description="We inspect your public GitHub profile and repositories."
+          />
+
+          <Step
+            number="02"
+            title="DIAGNOSE"
+            description="We measure the signals a recruiter can actually see."
+          />
+
+          <Step
+            number="03"
+            title="RESCUE"
+            description="Get prioritized fixes that can make the biggest difference."
+          />
         </div>
-      </main>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative z-10 border-t border-white/5 py-8 text-center text-xs text-zinc-600">
+        GitDoc · Built for developers who want their GitHub to speak for them.
+      </footer>
+    </main>
+  );
+}
+
+function Step({
+  number,
+  title,
+  description,
+}: {
+  number: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-white/5 bg-white/[0.025] p-6 text-left">
+      <div className="mb-5 text-xs font-medium text-violet-400">
+        {number}
+      </div>
+
+      <h3 className="mb-2 text-sm font-semibold tracking-widest">
+        {title}
+      </h3>
+
+      <p className="text-sm leading-6 text-zinc-500">{description}</p>
     </div>
   );
 }
